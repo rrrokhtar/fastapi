@@ -22,6 +22,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+label_map_of_the_model = {1:"TextRegion", 2:"ImageRegion", 3:"TableRegion", 4:"MathsRegion", 5:"SeparatorRegion", 6:"OtherRegion"}
+model_path = 'lp://PrimaLayout/mask_rcnn_R_50_FPN_3x/config'
+model = lp.Detectron2LayoutModel(model_path, extra_config=["MODEL.ROI_HEADS.SCORE_THRESH_TEST", 0.8], label_map=label_map_of_the_model)
+
+
 @app.get('/api/health')
 def health():
     return {"state": "OK"}
